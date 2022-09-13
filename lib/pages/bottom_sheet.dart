@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:todolist/model/task_model.dart';
 
 class BottomShitIteamText extends StatelessWidget {
@@ -47,9 +48,8 @@ class BottomShitIteamText extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             ),
             title: Text("Share Text", style: textTheme.bodyLarge),
-            onTap: () {
-              taskModel.delete();
-              Navigator.pop(context);
+            onTap: () async {
+              await Share.share(taskModel.name);
             },
           ),
         ],
