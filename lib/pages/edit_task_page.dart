@@ -11,12 +11,13 @@ class EditTaskPage extends StatelessWidget {
     TextEditingController textEditingController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
+        centerTitle: false,
         title: const Text('Edit Task'),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           final task = TaskModel();
-
+          Navigator.pop(context);
           task.name = textEditingController.text;
           task.priority = Priority.low;
           if (task.isInBox) {
