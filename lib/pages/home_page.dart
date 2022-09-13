@@ -17,14 +17,17 @@ class HomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const EditTaskPage()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        EditTaskPage(taskModel: TaskModel())));
           },
           label: Row(
             children: const [
               Text("Add New Task"),
               SizedBox(width: 5),
-              Icon(CupertinoIcons.add)
+              Icon(CupertinoIcons.checkmark_alt_circle)
             ],
           )),
       body: SafeArea(
@@ -110,7 +113,9 @@ class HomePage extends StatelessWidget {
                               ),
                               MaterialButton(
                                   color: const Color(0xffEAEFF5),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    TaskModel().delete();
+                                  },
                                   elevation: 0,
                                   textColor: secondaryTextColor,
                                   child: Row(

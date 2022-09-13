@@ -21,6 +21,8 @@ void main() async {
 const primaryColor = Color(0xff794cFF);
 const primaryVariantColor = Color(0xff5C0AFF);
 const Color secondaryTextColor = Color(0xffAFBED0);
+const normalPriority = Color(0xffF09819);
+const lowPriority = Color(0xff3BE1F1);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,8 +36,8 @@ class MyApp extends StatelessWidget {
       title: 'ToDoList',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          textTheme: GoogleFonts.poppinsTextTheme(
-              TextTheme(titleLarge: TextStyle(fontWeight: FontWeight.bold))),
+          textTheme: GoogleFonts.poppinsTextTheme(const TextTheme(
+              titleLarge: TextStyle(fontWeight: FontWeight.bold))),
           inputDecorationTheme: const InputDecorationTheme(
               labelStyle: TextStyle(color: secondaryTextColor),
               focusedBorder: null,
