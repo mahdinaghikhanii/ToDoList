@@ -43,8 +43,6 @@ class _EditTaskPageState extends State<EditTaskPage> {
               final Box<TaskModel> box = Hive.box(taskBoxName);
               box.add(widget.taskModel);
             }
-
-            // task.name = textEditingController.
           },
           label: Row(
             children: const [
