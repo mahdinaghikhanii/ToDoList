@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:lottie/lottie.dart';
 import '../main.dart';
 import '../model/task_model.dart';
 import 'edit_task_page.dart';
@@ -90,11 +91,18 @@ class HomePage extends StatelessWidget {
                 valueListenable: box.listenable(),
                 builder: (context, box, child) {
                   if (box.isEmpty) {
-                    return Center(
-                        child: Text(
-                      "Your task list is empty",
-                      style: themeData.textTheme.titleLarge,
-                    ));
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        LottieBuilder.asset('assets/lottie/task.json',
+                            width: 250),
+                        Center(
+                            child: Text(
+                          "Your task list is empty",
+                          style: themeData.textTheme.titleLarge,
+                        ))
+                      ],
+                    );
                   } else {
                     return ListView.builder(
                         padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
