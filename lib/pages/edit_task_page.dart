@@ -109,6 +109,9 @@ class _EditTaskPageState extends State<EditTaskPage> {
             Expanded(
               child: TextField(
                 controller: textEditingController,
+                keyboardType: TextInputType.multiline,
+                maxLength: null,
+                maxLines: null,
                 decoration: InputDecoration(
                     label: Text("Add a task for today",
                         style: Theme.of(context)
