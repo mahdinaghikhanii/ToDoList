@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+
 import '../main.dart';
 import '../model/task_model.dart';
 import '../pages/edit_task_page.dart';

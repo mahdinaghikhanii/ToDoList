@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController search = TextEditingController();
     final box = Hive.box<TaskModel>(taskBoxName);
     final themeData = Theme.of(context);
     return Scaffold(
@@ -72,8 +73,10 @@ class HomePage extends StatelessWidget {
                           )
                         ],
                       ),
-                      child: const TextField(
-                        decoration: InputDecoration(
+                      child: TextField(
+                        controller: search,
+                        onChanged: (val) {},
+                        decoration: const InputDecoration(
                             prefixIcon: Icon(CupertinoIcons.search),
                             label: Text('Search tasks...')),
                       ),
