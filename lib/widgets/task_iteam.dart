@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../main.dart';
 import '../model/task_model.dart';
+import '../pages/bottom_sheet.dart';
 import '../pages/edit_task_page.dart';
 import 'mycheckbox.dart';
 
@@ -37,10 +38,13 @@ class _TaskIteamState extends State<TaskIteam> {
                 builder: (context) => EditTaskPage(taskModel: widget.task)));
       },
       onLongPress: () {
-        widget.task.delete();
+        showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) {
+              return BottomShitIteamText(taskModel: widget.task);
+            });
       },
       child: Container(
-        margin: const EdgeInsets.only(top: 8),
         padding: const EdgeInsets.only(left: 16),
         height: 74,
         decoration: BoxDecoration(

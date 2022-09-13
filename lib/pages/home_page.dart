@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:lottie/lottie.dart';
+import 'package:share_plus/share_plus.dart';
 import '../main.dart';
 import '../model/task_model.dart';
 import 'edit_task_page.dart';
@@ -54,9 +55,14 @@ class HomePage extends StatelessWidget {
                           style: themeData.textTheme.titleLarge!
                               .apply(color: Colors.white),
                         ),
-                        Icon(
-                          CupertinoIcons.share_up,
-                          color: themeData.colorScheme.onPrimary,
+                        InkWell(
+                          onTap: () async {
+                            await Share.share(box.name);
+                          },
+                          child: Icon(
+                            CupertinoIcons.share_up,
+                            color: themeData.colorScheme.onPrimary,
+                          ),
                         )
                       ],
                     ),
@@ -148,7 +154,12 @@ class HomePage extends StatelessWidget {
                           } else {
                             final TaskModel task =
                                 box.values.toList()[index - 1];
-                            return TaskIteam(task: task);
+                            return Column(
+                              children: [
+                                const SizedBox(height: 10),
+                                TaskIteam(task: task),
+                              ],
+                            );
                           }
                         }));
                   }
