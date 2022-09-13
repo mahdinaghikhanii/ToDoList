@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/main.dart';
-import 'package:todolist/widgets/chekbox_shape_priority.dart';
+
+import '../main.dart';
+import 'chekbox_shape_priority.dart';
 
 class PriorityCheckBox extends StatelessWidget {
   final bool isSelected;

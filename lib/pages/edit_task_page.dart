@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:todolist/main.dart';
-import 'package:todolist/model/task_model.dart';
+import '../main.dart';
+import '../model/task_model.dart';
 
 import '../widgets/priority_checkbox.dart';
 

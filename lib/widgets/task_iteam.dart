@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/main.dart';
-import 'package:todolist/model/task_model.dart';
-import 'package:todolist/pages/edit_task_page.dart';
-import 'package:todolist/widgets/mycheckbox.dart';
+import 'package:hive_flutter/adapters.dart';
+import '../main.dart';
+import '../model/task_model.dart';
+import '../pages/edit_task_page.dart';
+import 'mycheckbox.dart';
 
 class TaskIteam extends StatefulWidget {
   const TaskIteam({super.key, required this.task});
@@ -34,6 +35,9 @@ class _TaskIteamState extends State<TaskIteam> {
             context,
             MaterialPageRoute(
                 builder: (context) => EditTaskPage(taskModel: widget.task)));
+      },
+      onLongPress: () {
+        widget.task.delete();
       },
       child: Container(
         margin: const EdgeInsets.only(top: 8),

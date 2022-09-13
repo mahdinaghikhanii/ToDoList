@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todolist/main.dart';
+import '../main.dart';
 
 class MyCheckBox extends StatelessWidget {
   final bool value;

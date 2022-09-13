@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:todolist/main.dart';
-import 'package:todolist/model/task_model.dart';
-import 'package:todolist/pages/edit_task_page.dart';
-import 'package:todolist/widgets/task_iteam.dart';
+import '../main.dart';
+import '../model/task_model.dart';
+import 'edit_task_page.dart';
+import '../widgets/task_iteam.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -86,52 +86,61 @@ class HomePage extends StatelessWidget {
               child: ValueListenableBuilder<Box<TaskModel>>(
                 valueListenable: box.listenable(),
                 builder: (context, box, child) {
-                  return ListView.builder(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
-                      itemCount: box.values.length + 1,
-                      itemBuilder: ((context, index) {
-                        if (index == 0) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Today',
-                                      style: themeData.textTheme.titleLarge!
-                                          .apply(fontSizeFactor: 0.9)),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 4),
-                                    width: 60,
-                                    height: 3,
-                                    decoration: BoxDecoration(
-                                        color: primaryColor,
-                                        borderRadius:
-                                            BorderRadius.circular(1.5)),
-                                  )
-                                ],
-                              ),
-                              MaterialButton(
-                                  color: const Color(0xffEAEFF5),
-                                  onPressed: () {
-                                    TaskModel().delete();
-                                  },
-                                  elevation: 0,
-                                  textColor: secondaryTextColor,
-                                  child: Row(
-                                    children: const [
-                                      Text("Delete All"),
-                                      SizedBox(width: 4),
-                                      Icon(CupertinoIcons.delete, size: 18),
-                                    ],
-                                  ))
-                            ],
-                          );
-                        } else {
-                          final TaskModel task = box.values.toList()[index - 1];
-                          return TaskIteam(task: task);
-                        }
-                      }));
+                  if (box.isEmpty) {
+                    return Center(
+                        child: Text(
+                      "Your task list is empty",
+                      style: themeData.textTheme.titleLarge,
+                    ));
+                  } else {
+                    return ListView.builder(
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
+                        itemCount: box.values.length + 1,
+                        itemBuilder: ((context, index) {
+                          if (index == 0) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Today',
+                                        style: themeData.textTheme.titleLarge!
+                                            .apply(fontSizeFactor: 0.9)),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 4),
+                                      width: 60,
+                                      height: 3,
+                                      decoration: BoxDecoration(
+                                          color: primaryColor,
+                                          borderRadius:
+                                              BorderRadius.circular(1.5)),
+                                    )
+                                  ],
+                                ),
+                                MaterialButton(
+                                    color: const Color(0xffEAEFF5),
+                                    onPressed: () {
+                                      box.clear();
+                                    },
+                                    elevation: 0,
+                                    textColor: secondaryTextColor,
+                                    child: Row(
+                                      children: const [
+                                        Text("Delete All"),
+                                        SizedBox(width: 4),
+                                        Icon(CupertinoIcons.delete, size: 18),
+                                      ],
+                                    ))
+                              ],
+                            );
+                          } else {
+                            final TaskModel task =
+                                box.values.toList()[index - 1];
+                            return TaskIteam(task: task);
+                          }
+                        }));
+                  }
                 },
               ),
             ),

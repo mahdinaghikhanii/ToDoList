@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:todolist/model/task_model.dart';
-import 'package:todolist/pages/home_page.dart';
+import 'model/task_model.dart';
+import 'pages/home_page.dart';
 
 const taskBoxName = 'TASKS';
 
