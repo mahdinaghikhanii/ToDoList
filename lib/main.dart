@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
           textTheme: GoogleFonts.poppinsTextTheme(const TextTheme(
               titleLarge: TextStyle(fontWeight: FontWeight.bold))),
           inputDecorationTheme: const InputDecorationTheme(
+              floatingLabelBehavior: FloatingLabelBehavior.never,
               labelStyle: TextStyle(color: secondaryTextColor),
               focusedBorder: null,
               border: InputBorder.none,
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
               secondary: primaryColor,
               onSecondary: Colors.white,
               onSurface: primaryTextColor)),
-      home: const HomePage(),
+      home: HomePage(),
     );
   }
 }
