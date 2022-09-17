@@ -1,35 +1,43 @@
-import 'package:todolist/data/source/source.dart';
+import 'package:flutter/cupertino.dart';
 
-class Repository<T> implements DataSource {
+import '../source/source.dart';
+
+class Repository<T> extends ChangeNotifier implements DataSource<T> {
   final DataSource<T> localDataSource;
   Repository(this.localDataSource);
+
   @override
-  Future createOrUpdate(data) {
-    return localDataSource.createOrUpdate(data);
+  Future<T> createOrUpdate(T data) async {
+    final T result = await localDataSource.createOrUpdate(data);
+    notifyListeners();
+    return result;
   }
 
   @override
-  Future<void> delete(data) {
-    return localDataSource.delete(data);
+  Future<void> delete(data) async {
+    localDataSource.delete(data);
+    notifyListeners();
   }
 
   @override
-  Future<void> deleteAll() {
-    return localDataSource.deleteAll();
+  Future<void> deleteAll() async {
+    await localDataSource.deleteAll();
+    notifyListeners();
   }
 
   @override
-  Future<void> deleteById(id) {
-    return localDataSource.deleteById(id);
+  Future<void> deleteById(id) async {
+    localDataSource.deleteById(id);
+    notifyListeners();
   }
 
   @override
-  Future findById(id) {
+  Future<T> findById(id) async {
     return localDataSource.findById(id);
   }
 
   @override
-  Future<List> getAll({String searchKeyword = ''}) {
+  Future<List<T>> getAll({String searchKeyword = ''}) {
     return localDataSource.getAll(searchKeyword: searchKeyword);
   }
 }

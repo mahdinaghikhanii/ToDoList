@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:provider/provider.dart';
 
 import 'data/data.dart';
+import 'data/repo/repository.dart';
+import 'data/source/hive_task_source.dart';
 import 'pages/home_page.dart';
 
 const taskBoxName = 'TASKS';
@@ -16,7 +19,10 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: primaryVariantColor));
 
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<Repository<TaskEntity>>(
+      create: (context) =>
+          Repository<TaskEntity>(HiveTaskDataSource(Hive.box(taskBoxName))),
+      child: const MyApp()));
 }
 
 const primaryColor = Color(0xff794cFF);

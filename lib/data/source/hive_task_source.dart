@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todolist/data/data.dart';
-import 'package:todolist/data/source/source.dart';
+
+import '../data.dart';
+import 'source.dart';
 
 class HiveTaskDataSource implements DataSource<TaskEntity> {
   final Box<TaskEntity> box;
@@ -38,6 +39,12 @@ class HiveTaskDataSource implements DataSource<TaskEntity> {
 
   @override
   Future<List<TaskEntity>> getAll({String searchKeyword = ''}) async {
-    return box.values.toList();
+    if (searchKeyword.isNotEmpty) {
+      return box.values
+          .where((element) => element.name.contains(searchKeyword))
+          .toList();
+    } else {
+      return box.values.toList();
+    }
   }
 }

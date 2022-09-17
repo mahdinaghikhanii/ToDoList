@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:provider/provider.dart';
+import 'package:todolist/data/repo/repository.dart';
 import '../main.dart';
 import '../data/data.dart';
 
@@ -33,16 +34,12 @@ class _EditTaskPageState extends State<EditTaskPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            Navigator.pop(context);
-
             widget.taskEntity.name = textEditingController.text;
             widget.taskEntity.priority = widget.taskEntity.priority;
-            if (widget.taskEntity.isInBox) {
-              widget.taskEntity.save();
-            } else {
-              final Box<TaskEntity> box = Hive.box(taskBoxName);
-              box.add(widget.taskEntity);
-            }
+            final provider =
+                Provider.of<Repository<TaskEntity>>(context, listen: false);
+            provider.createOrUpdate(widget.taskEntity);
+            Navigator.pop(context);
           },
           label: Row(
             children: const [
