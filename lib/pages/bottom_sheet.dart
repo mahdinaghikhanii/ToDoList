@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:todolist/model/task_model.dart';
+import '../data/data.dart';
 
 class BottomShitIteamText extends StatelessWidget {
-  final TaskModel taskModel;
-  const BottomShitIteamText({Key? key, required this.taskModel})
+  final TaskEntity taskEntity;
+  const BottomShitIteamText({Key? key, required this.taskEntity})
       : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class BottomShitIteamText extends StatelessWidget {
             ),
             title: Text("Delete Items", style: textTheme.bodyLarge),
             onTap: () {
-              taskModel.delete();
+              taskEntity.delete();
               Navigator.pop(context);
             },
           ),
@@ -49,7 +49,7 @@ class BottomShitIteamText extends StatelessWidget {
             ),
             title: Text("Share Text", style: textTheme.bodyLarge),
             onTap: () async {
-              await Share.share(taskModel.name);
+              await Share.share(taskEntity.name);
             },
           ),
         ],

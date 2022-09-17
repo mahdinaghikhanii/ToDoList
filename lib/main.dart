@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'model/task_model.dart';
+
+import 'data/data.dart';
 import 'pages/home_page.dart';
 
 const taskBoxName = 'TASKS';
 
 void main() async {
   await Hive.initFlutter();
-  Hive.registerAdapter(TaskModelAdapter());
+  Hive.registerAdapter(TaskEntityAdapter());
   Hive.registerAdapter(PriorityAdapter());
-  await Hive.openBox<TaskModel>(taskBoxName);
+  await Hive.openBox<TaskEntity>(taskBoxName);
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: primaryVariantColor));
 

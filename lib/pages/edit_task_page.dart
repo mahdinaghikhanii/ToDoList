@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import '../main.dart';
-import '../model/task_model.dart';
+import '../data/data.dart';
 
 import '../widgets/priority_checkbox.dart';
 
 class EditTaskPage extends StatefulWidget {
-  final TaskModel taskModel;
-  const EditTaskPage({super.key, required this.taskModel});
+  final TaskEntity taskEntity;
+  const EditTaskPage({super.key, required this.taskEntity});
 
   @override
   State<EditTaskPage> createState() => _EditTaskPageState();
@@ -16,7 +16,7 @@ class EditTaskPage extends StatefulWidget {
 
 class _EditTaskPageState extends State<EditTaskPage> {
   late TextEditingController textEditingController =
-      TextEditingController(text: widget.taskModel.name);
+      TextEditingController(text: widget.taskEntity.name);
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
@@ -35,13 +35,13 @@ class _EditTaskPageState extends State<EditTaskPage> {
           onPressed: () {
             Navigator.pop(context);
 
-            widget.taskModel.name = textEditingController.text;
-            widget.taskModel.priority = widget.taskModel.priority;
-            if (widget.taskModel.isInBox) {
-              widget.taskModel.save();
+            widget.taskEntity.name = textEditingController.text;
+            widget.taskEntity.priority = widget.taskEntity.priority;
+            if (widget.taskEntity.isInBox) {
+              widget.taskEntity.save();
             } else {
-              final Box<TaskModel> box = Hive.box(taskBoxName);
-              box.add(widget.taskModel);
+              final Box<TaskEntity> box = Hive.box(taskBoxName);
+              box.add(widget.taskEntity);
             }
           },
           label: Row(
@@ -65,11 +65,11 @@ class _EditTaskPageState extends State<EditTaskPage> {
                   flex: 1,
                   child: PriorityCheckBox(
                     color: themeData.colorScheme.primary,
-                    isSelected: widget.taskModel.priority == Priority.high,
+                    isSelected: widget.taskEntity.priority == Priority.high,
                     label: 'High',
                     ontap: () {
                       setState(() {
-                        widget.taskModel.priority = Priority.high;
+                        widget.taskEntity.priority = Priority.high;
                       });
                     },
                   ),
@@ -79,11 +79,11 @@ class _EditTaskPageState extends State<EditTaskPage> {
                   flex: 1,
                   child: PriorityCheckBox(
                     color: normalPriority,
-                    isSelected: widget.taskModel.priority == Priority.normal,
+                    isSelected: widget.taskEntity.priority == Priority.normal,
                     label: 'Normal',
                     ontap: () {
                       setState(() {
-                        widget.taskModel.priority = Priority.normal;
+                        widget.taskEntity.priority = Priority.normal;
                       });
                     },
                   ),
@@ -93,11 +93,11 @@ class _EditTaskPageState extends State<EditTaskPage> {
                   flex: 1,
                   child: PriorityCheckBox(
                     color: lowPriority,
-                    isSelected: widget.taskModel.priority == Priority.low,
+                    isSelected: widget.taskEntity.priority == Priority.low,
                     label: 'Low',
                     ontap: () {
                       setState(() {
-                        widget.taskModel.priority = Priority.low;
+                        widget.taskEntity.priority = Priority.low;
                       });
                     },
                   ),

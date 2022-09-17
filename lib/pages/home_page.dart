@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:lottie/lottie.dart';
 import '../main.dart';
-import '../model/task_model.dart';
+import '../data/data.dart';
 import 'edit_task_page.dart';
 import '../widgets/task_iteam.dart';
 
@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final box = Hive.box<TaskModel>(taskBoxName);
+    final box = Hive.box<TaskEntity>(taskBoxName);
     final themeData = Theme.of(context);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        EditTaskPage(taskModel: TaskModel())));
+                        EditTaskPage(taskEntity: TaskEntity())));
           },
           label: Row(
             children: const [
@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
               child: ValueListenableBuilder<String>(
                 valueListenable: searchKeywordNotifure,
                 builder: (context, value, child) {
-                  return ValueListenableBuilder<Box<TaskModel>>(
+                  return ValueListenableBuilder<Box<TaskEntity>>(
                     valueListenable: box.listenable(),
                     builder: (context, box, child) {
                       final items;
@@ -170,7 +170,7 @@ class HomePage extends StatelessWidget {
                                   ],
                                 );
                               } else {
-                                final TaskModel task = items[index - 1];
+                                final TaskEntity task = items[index - 1];
                                 return Column(
                                   children: [
                                     const SizedBox(height: 10),

@@ -1,8 +1,9 @@
 import 'package:hive_flutter/hive_flutter.dart';
-part 'task_model.g.dart';
+part 'data.g.dart';
 
 @HiveType(typeId: 0)
-class TaskModel extends HiveObject {
+class TaskEntity extends HiveObject {
+  int id = -1;
   @HiveField(0)
   String name = '';
   @HiveField(1)

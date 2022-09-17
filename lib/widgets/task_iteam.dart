@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../main.dart';
-import '../model/task_model.dart';
+import '../data/data.dart';
 import '../pages/bottom_sheet.dart';
 import '../pages/edit_task_page.dart';
 import 'mycheckbox.dart';
 
 class TaskIteam extends StatefulWidget {
   const TaskIteam({super.key, required this.task});
-  final TaskModel task;
+  final TaskEntity task;
   @override
   State<TaskIteam> createState() => _TaskIteamState();
 }
@@ -35,13 +35,13 @@ class _TaskIteamState extends State<TaskIteam> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => EditTaskPage(taskModel: widget.task)));
+                builder: (context) => EditTaskPage(taskEntity: widget.task)));
       },
       onLongPress: () {
         showModalBottomSheet<void>(
             context: context,
             builder: (BuildContext context) {
-              return BottomShitIteamText(taskModel: widget.task);
+              return BottomShitIteamText(taskEntity: widget.task);
             });
       },
       child: Container(
