@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:todolist/data/repo/repository.dart';
+import 'package:todolist/pages/edit/cubit/edittask_cubit.dart';
 
 import '../../data/data.dart';
 import '../../widgets/notfound.dart';
@@ -24,8 +25,10 @@ class HomePage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        EditTaskPage(taskEntity: TaskEntity())));
+                    builder: (context) => BlocProvider<EdittaskCubit>(
+                        create: (context) => EdittaskCubit(TaskEntity(),
+                            context.read<Repository<TaskEntity>>()),
+                        child: const EditTaskPage())));
           },
           label: Row(
             children: const [

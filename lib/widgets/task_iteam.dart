@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todolist/data/repo/repository.dart';
 
 import '../main.dart';
 import '../data/data.dart';
 import '../pages/bottom_sheet.dart';
+import '../pages/edit/cubit/edittask_cubit.dart';
 import '../pages/edit/edit_task_page.dart';
 import 'mycheckbox.dart';
 
@@ -35,7 +38,10 @@ class _TaskIteamState extends State<TaskIteam> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => EditTaskPage(taskEntity: widget.task)));
+                builder: (context) => BlocProvider<EdittaskCubit>(
+                    create: (context) => EdittaskCubit(
+                        widget.task, context.read<Repository<TaskEntity>>()),
+                    child: const EditTaskPage())));
       },
       onLongPress: () {
         showModalBottomSheet<void>(

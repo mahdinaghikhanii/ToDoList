@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:todolist/pages/edit/cubit/edittask_cubit.dart';
 
 import '../../data/data.dart';
 import '../../data/repo/repository.dart';
@@ -8,16 +10,21 @@ import '../../main.dart';
 import '../../widgets/priority_checkbox.dart';
 
 class EditTaskPage extends StatefulWidget {
-  final TaskEntity taskEntity;
-  const EditTaskPage({super.key, required this.taskEntity});
+  const EditTaskPage({super.key});
 
   @override
   State<EditTaskPage> createState() => _EditTaskPageState();
 }
 
 class _EditTaskPageState extends State<EditTaskPage> {
-  late TextEditingController textEditingController =
-      TextEditingController(text: widget.taskEntity.name);
+  late TextEditingController _textEditingController;
+  @override
+  void initState() {
+    _textEditingController = TextEditingController(
+        text: context.read<EdittaskCubit>().state.task.name);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
@@ -34,11 +41,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            widget.taskEntity.name = textEditingController.text;
-            widget.taskEntity.priority = widget.taskEntity.priority;
-            final provider =
-                Provider.of<Repository<TaskEntity>>(context, listen: false);
-            provider.createOrUpdate(widget.taskEntity);
+            context.read<EdittaskCubit>().onSaveChnageClick();
             Navigator.pop(context);
           },
           label: Row(
@@ -55,58 +58,66 @@ class _EditTaskPageState extends State<EditTaskPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Flex(
-              direction: Axis.horizontal,
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: PriorityCheckBox(
-                    color: themeData.colorScheme.primary,
-                    isSelected: widget.taskEntity.priority == Priority.high,
-                    label: 'High',
-                    ontap: () {
-                      setState(() {
-                        widget.taskEntity.priority = Priority.high;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Flexible(
-                  flex: 1,
-                  child: PriorityCheckBox(
-                    color: normalPriority,
-                    isSelected: widget.taskEntity.priority == Priority.normal,
-                    label: 'Normal',
-                    ontap: () {
-                      setState(() {
-                        widget.taskEntity.priority = Priority.normal;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Flexible(
-                  flex: 1,
-                  child: PriorityCheckBox(
-                    color: lowPriority,
-                    isSelected: widget.taskEntity.priority == Priority.low,
-                    label: 'Low',
-                    ontap: () {
-                      setState(() {
-                        widget.taskEntity.priority = Priority.low;
-                      });
-                    },
-                  ),
-                ),
-              ],
+            BlocBuilder<EdittaskCubit, EdittaskState>(
+              builder: (BuildContext context, state) {
+                final priority = state.task.priority;
+                return Flex(
+                  direction: Axis.horizontal,
+                  children: [
+                    Flexible(
+                      flex: 1,
+                      child: PriorityCheckBox(
+                        color: themeData.colorScheme.primary,
+                        isSelected: priority == Priority.high,
+                        label: 'High',
+                        ontap: () {
+                          context
+                              .read<EdittaskCubit>()
+                              .onPriorityChanged(Priority.high);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      flex: 1,
+                      child: PriorityCheckBox(
+                        color: normalPriority,
+                        isSelected: priority == Priority.normal,
+                        label: 'Normal',
+                        ontap: () {
+                          context
+                              .read<EdittaskCubit>()
+                              .onPriorityChanged(Priority.normal);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      flex: 1,
+                      child: PriorityCheckBox(
+                        color: lowPriority,
+                        isSelected: priority == Priority.low,
+                        label: 'Low',
+                        ontap: () {
+                          context
+                              .read<EdittaskCubit>()
+                              .onPriorityChanged(Priority.low);
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             Expanded(
               child: TextField(
-                controller: textEditingController,
+                controller: _textEditingController,
                 keyboardType: TextInputType.multiline,
                 maxLength: null,
                 maxLines: null,
+                onChanged: (val) {
+                  context.read<EdittaskCubit>().onTextChange(val);
+                },
                 decoration: InputDecoration(
                     label: Text("Add a task for today",
                         style: Theme.of(context)
