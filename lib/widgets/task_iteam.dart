@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import '../data/data.dart';
 import '../pages/bottom_sheet.dart';
-import '../pages/edit_task_page.dart';
+import '../pages/edit/edit_task_page.dart';
 import 'mycheckbox.dart';
 
 class TaskIteam extends StatefulWidget {

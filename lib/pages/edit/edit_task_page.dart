@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todolist/data/repo/repository.dart';
-import '../main.dart';
-import '../data/data.dart';
 
-import '../widgets/priority_checkbox.dart';
+import '../../data/data.dart';
+import '../../data/repo/repository.dart';
+import '../../main.dart';
+import '../../widgets/priority_checkbox.dart';
 
 class EditTaskPage extends StatefulWidget {
   final TaskEntity taskEntity;

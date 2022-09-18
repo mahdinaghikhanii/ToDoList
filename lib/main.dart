@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'data/data.dart';
 import 'data/repo/repository.dart';
 import 'data/source/hive_task_source.dart';
-import 'pages/home_page.dart';
+import 'pages/home/home_page.dart';
 
 const taskBoxName = 'TASKS';
 

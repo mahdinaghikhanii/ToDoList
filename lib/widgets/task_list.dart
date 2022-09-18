@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todolist/pages/home/bloc/tasklist_bloc.dart';
 import '../data/data.dart';
 import '../data/repo/repository.dart';
 import '../main.dart';
@@ -40,10 +41,7 @@ class TaskList extends StatelessWidget {
                 MaterialButton(
                     color: const Color(0xffEAEFF5),
                     onPressed: () {
-                      final taskRepository =
-                          Provider.of<Repository<TaskEntity>>(context,
-                              listen: false);
-                      taskRepository.deleteAll();
+                      context.read<TasklistBloc>().add(TaskListDeleteAll());
                     },
                     elevation: 0,
                     textColor: secondaryTextColor,
